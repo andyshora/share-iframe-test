@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<title>t1</title>
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<meta name="description" content="d1">
+	<meta name="author" content="Andy Shora">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link rel=stylesheet href="assets/css/m.min.css">
+	<!--[if lt IE 7 ]><script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})});</script><![endif]-->
+</head>
+<body>
+
+<div id="body_wrap">
+	<header>
+		<iframe id="iframe1" src="iframe.html" width="400" height="200" frameborder="0"></iframe>
+	</header>
+
+
+
+<footer>
+	<p>Andy Shora &copy; 2013</p>
+</footer>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		// $('meta[name=description]').attr('content', 'd2');
+		// $('title').html('t2');
+	});
+
+	var childFrame = document.getElementById('iframe1').contentWindow;
+
+	function onMessageReceived(e) {
+		console.log('parent frame onMessageReceived-> ', e.data);
+
+		if ('title' in e.data) {
+			$('title').html(e.data.title);
+		}
+
+		if ('description' in e.data) {
+			$('meta[name=description]').attr('content', e.data.description);
+		}
+	}
+
+	window.addEventListener('message', onMessageReceived, false);
+
+	childFrame.postMessage({ message: 'hi' }, '*');
+</script>
+</body>
+</html>

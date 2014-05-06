@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<title>t1</title>
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<meta name="description" content="d1">
+	<meta name="author" content="Andy Shora">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link rel=stylesheet href="assets/css/m.min.css">
+	<!--[if lt IE 7 ]><script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})});</script><![endif]-->
+</head>
+<body>
+
+<div id="body_wrap">
+
+		<h1>inside iframe</h1>
+
+		<a href="https://plus.google.com/share?url=file%3A%2F%2Flocalhost%2FUsers%2Fandysh%2FDev%2Fandyshora%2Fmeta.html" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
+  src="https://www.gstatic.com/images/icons/gplus-64.png" alt="Share on Google+"/>Share me yo</a>
+
+
+<footer>
+	<p>Andy Shora &copy; 2013</p>
+</footer>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('meta[name=description]').attr('content', 'd2');
+		$('title').html('t2');
+	});
+
+	var parentFrame = null;
+
+	function onMessageReceived(e) {
+		console.log('child frame onMessageReceived-> ', e.data);
+		parentFrame = e.source;
+
+		parentFrame.postMessage({ message: 'yo', title: '222', description: '3333' }, '*');
+
+		// open share dialog
+	}
+
+	window.addEventListener('message', onMessageReceived, false);
+</script>
+</body>
+</html>
