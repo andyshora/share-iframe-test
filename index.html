@@ -36,6 +36,10 @@
 	function onMessageReceived(e) {
 		console.log('parent frame onMessageReceived-> ', e.data);
 
+		if (!e.data) {
+			return;
+		}
+
 		if (e.data && 'title' in e.data) {
 			$('title').html(e.data.title);
 		}
