@@ -36,11 +36,11 @@
 	function onMessageReceived(e) {
 		console.log('parent frame onMessageReceived-> ', e.data);
 
-		if ('title' in e.data) {
+		if (e.data && 'title' in e.data) {
 			$('title').html(e.data.title);
 		}
 
-		if ('description' in e.data) {
+		if (e.data && 'description' in e.data) {
 			$('meta[name=description]').attr('content', e.data.description);
 		}
 	}
